@@ -15,7 +15,8 @@ class App extends Component {
   }
 
   update() {
-    fetch('https://pennyauctionserver.herokuapp.com/auctions').then((response) => {
+    fetch('https://pennyauctionserver.herokuapp.com/auctions')
+    .then((response) => {
       return response.json();
     }).then((response) => {
       this.setState({items: response});

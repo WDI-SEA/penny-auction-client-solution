@@ -28,7 +28,23 @@ class PennyAuction extends Component {
   }
 
   bid() {
-    console.log("bidding")
+    var json = JSON.stringify({username: 'geluso'});
+    fetch(`http://pennyauctionserverherokuapp.com/auctions/${this.props.item.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: json
+    })
+    .then((response) => {
+      return response.json();
+    }).then((response) => {
+      console.log("put response", response);
+    }).catch((response) => {
+      console.log('Error!', response);
+    });
   }
 }
 
