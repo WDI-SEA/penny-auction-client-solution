@@ -29,7 +29,7 @@ class PennyAuction extends Component {
 
   bid() {
     var json = JSON.stringify({username: 'geluso'});
-    fetch(`http://pennyauctionserverherokuapp.com/auctions/${this.props.item.id}`,
+    fetch(`http://pennyauctionserver.herokuapp.com/auctions/${this.props.item.id}`,
       {
         method: 'PUT',
         headers: {
