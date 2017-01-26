@@ -9,26 +9,22 @@ class App extends Component {
     this.state = {
       items: []
     }
+    
+    this.update();
+    setInterval(() => this.update(), 1000);
   }
 
-  componentDidMount() {
-    var that = this;
-    function update() {
-      console.log("updating items");
-      fetch('https://pennyauctionserver.herokuapp.com/auctions').then((response) => {
-        return response.json();
-      }).then((response) => {
-        console.log(response);
-        that.setState({items: response});
-      }).catch((response) => {
-        console.log('Error!', response);
-      });
-    }
-    setInterval(update, 1000);
+  update() {
+    fetch('https://pennyauctionserver.herokuapp.com/auctions').then((response) => {
+      return response.json();
+    }).then((response) => {
+      this.setState({items: response});
+    }).catch((response) => {
+      console.log('Error!', response);
+    });
   }
 
   render() {
-
     let pennyItems = this.state.items.map((item, index) => {
       return <PennyAuction key={index} item={item} index={index} />
     });

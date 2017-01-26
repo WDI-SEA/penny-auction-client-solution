@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 
 class PennyAuction extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      timeLeft: this.props.item.seconds_left
-    }
-  }
-
-  componentDidMount() {
-    this.timer = setInterval(() => {this.tick()}, 1000);
-  }
-
   render() {
-    return ( 
+    let timeLeft = null;
+    if (this.props.item.seconds_left === 0) {
+      timeLeft = <p>SOLD!!</p>
+    } else {
+      timeLeft = <p>{this.props.item.seconds_left} Seconds Left!</p>
+    }
+    
+    return (
       <div className="col-xs-3">
         <div className="panel panel-default">
           <div className="panel-heading">
@@ -22,7 +17,7 @@ class PennyAuction extends Component {
           </div>
           <div className="panel-body text-center">
             <img className="img-responsive" src={this.props.item.img} />
-            <p>{this.state.timeLeft} Seconds Left!</p>
+            {timeLeft}
             <p className="text-success">{this.props.item.price}</p>
             <p>{this.props.item.username}</p>
             <button onClick={() => {this.bid()}} className="btn btn-warning center-block">Bid</button>
@@ -33,17 +28,7 @@ class PennyAuction extends Component {
   }
 
   bid() {
-    clearInterval(this.timer);
-    this.setState({timeLeft: this.props.item.seconds_left});
-    this.timer = setInterval(() => {this.tick()}, 1000);
-  }
-
-  tick() {
-    if(this.state.timeLeft <= 0) {
-      return;
-    }
-
-    this.setState({timeLeft: this.state.timeLeft - 1});
+    console.log("bidding")
   }
 }
 
